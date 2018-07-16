@@ -77,5 +77,4 @@ public class Project {
     public Boolean isShowAnnouncement() {
         return getShowAnnouncement();
     }
-
 }

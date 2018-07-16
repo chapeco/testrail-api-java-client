@@ -42,7 +42,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedInputStream;
@@ -60,7 +59,6 @@ import java.nio.charset.Charset;
  * TestRail request.
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@Log4j
 public abstract class Request<T> {
 
     private static final UrlConnectionFactory DEFAULT_URL_CONNECTION_FACTORY = new UrlConnectionFactory();
@@ -133,7 +131,6 @@ public abstract class Request<T> {
                     con.setFixedLengthStreamingMode(0);
                 }
             }
-            log.debug("Sending " + method + " request to URL : " + url);
             int responseCode = 0;
             try {
                 responseCode = con.getResponseCode();
@@ -141,7 +138,6 @@ public abstract class Request<T> {
                 // swallow it since for 401 getResponseCode throws an IOException
                 responseCode = con.getResponseCode();
             }
-            log.debug("Response Code : " + responseCode);
 
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 try (InputStream errorStream = con.getErrorStream()) {

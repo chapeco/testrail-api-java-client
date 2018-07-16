@@ -36,7 +36,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -87,11 +86,6 @@ public class RequestTest {
     private UrlConnectionFactory mockUrlConnectionFactory;
 
     private Models models;
-
-    @BeforeClass
-    public static void setUpLogger() {
-        PropertyConfigurator.configure(RequestTest.class.getResourceAsStream("/log4j.properties"));
-    }
 
     @Before
     public void setUp() throws IOException {
@@ -172,7 +166,8 @@ public class RequestTest {
 
         // WHEN
         final Model expectedModel = new Model().setId(1).setName("Test Model 1").setShowAnnouncement(true).setIsCompleted(false).setSuiteMode(2);
-        final Model actualModel = models.add(expectedModel).execute();
+        final Model actualModel;
+        actualModel = models.add(expectedModel).execute();
 
         // THEN -- verify post body
         byte[] postBodyBytes = postBodyOutputStream.toByteArray();

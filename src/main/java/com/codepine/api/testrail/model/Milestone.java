@@ -25,6 +25,7 @@
 package com.codepine.api.testrail.model;
 
 import com.codepine.api.testrail.TestRail;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -47,12 +48,15 @@ public class Milestone {
     @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
     private String description;
 
+    @JsonProperty(value = "project_id")
     private int projectId;
 
     @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonProperty(value = "due_on")
     private Date dueOn;
 
     @JsonView({TestRail.Milestones.Update.class})
+    @JsonProperty(value = "is_completed")
     @Getter(value = AccessLevel.PRIVATE)
     @Setter(value = AccessLevel.PRIVATE)
     private Boolean isCompleted;
@@ -65,7 +69,25 @@ public class Milestone {
         return setIsCompleted(isCompleted);
     }
 
+    @JsonProperty(value = "completed_on")
     private Date completedOn;
 
     private String url;
+
+    @JsonView({TestRail.Milestones.Update.class})
+    @JsonProperty(value = "is_started")
+    private boolean isStarted;
+
+    private Milestone[] milestones;
+
+    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonProperty(value = "parent_id")
+    private int parentId;
+
+    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonProperty(value = "start_on")
+    private Date startOn;
+
+    @JsonProperty(value = "started_on")
+    private Date startedOn;
 }

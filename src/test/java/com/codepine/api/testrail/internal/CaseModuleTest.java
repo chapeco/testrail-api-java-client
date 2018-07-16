@@ -24,9 +24,13 @@
 
 package com.codepine.api.testrail.internal;
 
+import com.codepine.api.testrail.model.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
 import com.codepine.api.testrail.model.Case;
 import com.codepine.api.testrail.model.CaseField;
 import com.codepine.api.testrail.model.Field;
+import com.codepine.api.testrail.model.Template;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -34,10 +38,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -70,7 +71,7 @@ public class CaseModuleTest {
         Case actualCase = objectMapper.reader(Case.class).with(new InjectableValues.Std().addValue(Case.class.toString(), caseFields)).readValue(this.getClass().getResourceAsStream("/case_with_no_custom_fields.json"));
 
         // THEN
-        Case expectedCase = new Case().setId(13).setTitle("Test Case 2").setSectionId(6).setTypeId(6).setPriorityId(4).setCreatedBy(1).setCreatedOn(new Date(1425683583000L)).setUpdatedBy(1).setUpdatedOn(new Date(1425845918000L)).setSuiteId(4);
+        Case expectedCase = new Case().setId(13).setTitle("Test Case 2").setSectionId(6).setTypeId(6).setPriorityId(4).setCreatedBy(1).setCreatedOn(new Date(1425683583000L)).setUpdatedBy(1).setUpdatedOn(new Date(1425845918000L)).setSuiteId(4).setTemplateId(1);
         assertEquals(expectedCase, actualCase);
     }
 
@@ -87,5 +88,34 @@ public class CaseModuleTest {
         List<Field.Step> steps = Arrays.asList(new Field.Step().setContent("Step 1").setExpected("Expected 1"), new Field.Step().setContent("Step 2").setExpected("Expected 2"));
         Case expectedCase = new Case().setId(13).setTitle("Test Case 2").setSectionId(6).setTypeId(6).setPriorityId(4).setCreatedBy(1).setCreatedOn(new Date(1425683583000L)).setUpdatedBy(1).setUpdatedOn(new Date(1425845918000L)).setSuiteId(4).addCustomField("separated_steps", steps);
         assertEquals(expectedCase, actualCase);
+    }
+
+    @Test
+    public void getTemplate() throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        List<Template> actualTemplates = mapper.readValue(this.getClass().getResourceAsStream("/get_templates.json"), new TypeReference<List<Template>>(){});
+
+        System.out.println(actualTemplates.toString());
+
+        Template one = new Template().setId(1).setDefault(true).setName("Test Case (Text)");
+        Template two = new Template().setId(2).setDefault(false).setName("Test Case (Steps)");
+        Template three = new Template().setId(3).setDefault(false).setName("Exploratory Session");
+
+        List<Template> expectedTemplates = new ArrayList<>(Arrays.asList(one, two, three));
+
+        System.out.println(expectedTemplates.toString());
+
+        assertEquals(actualTemplates, expectedTemplates);
+    }
+
+    @Test
+    public void getMilestone() throws IOException {
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Milestone actualMilestone = mapper.readValue(this.getClass().getResourceAsStream("/get_milestone.json"), new TypeReference<Milestone>(){});
+
+        System.out.println(actualMilestone.toString());
     }
 }

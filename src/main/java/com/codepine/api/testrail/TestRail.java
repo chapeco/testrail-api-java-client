@@ -26,22 +26,7 @@ package com.codepine.api.testrail;
 
 import com.codepine.api.testrail.internal.BooleanToIntSerializer;
 import com.codepine.api.testrail.internal.ListToCsvSerializer;
-import com.codepine.api.testrail.model.Case;
-import com.codepine.api.testrail.model.CaseField;
-import com.codepine.api.testrail.model.CaseType;
-import com.codepine.api.testrail.model.Configuration;
-import com.codepine.api.testrail.model.Milestone;
-import com.codepine.api.testrail.model.Plan;
-import com.codepine.api.testrail.model.Priority;
-import com.codepine.api.testrail.model.Project;
-import com.codepine.api.testrail.model.Result;
-import com.codepine.api.testrail.model.ResultField;
-import com.codepine.api.testrail.model.Run;
-import com.codepine.api.testrail.model.Section;
-import com.codepine.api.testrail.model.Status;
-import com.codepine.api.testrail.model.Suite;
-import com.codepine.api.testrail.model.Test;
-import com.codepine.api.testrail.model.User;
+import com.codepine.api.testrail.model.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -143,6 +128,15 @@ public class TestRail {
      */
     public Suites suites() {
         return new Suites();
+    }
+
+    /**
+     * An accessor for creating requests for "Templates".
+     *
+     * @return a request factory
+     */
+    public Templates templates() {
+        return new Templates();
     }
 
     /**
@@ -2067,6 +2061,28 @@ public class TestRail {
 
             private List() {
                 super(config, Method.GET, REST_PATH, new TypeReference<java.util.List<User>>() {
+                });
+            }
+        }
+
+    }
+
+    /**
+     * Request factories for "Templates".
+     */
+    @NoArgsConstructor
+    public class Templates {
+
+        public List list(final int projectId) {
+            checkArgument(projectId > 0, "projectId should be positive");
+            return new List(projectId);
+        }
+
+        public class List extends Request<java.util.List<Template>> {
+            private static final String REST_PATH = "get_templates/";
+
+            private List(int projectId) {
+                super(config, Method.GET, REST_PATH + projectId, new TypeReference<java.util.List<Template>>() {
                 });
             }
         }

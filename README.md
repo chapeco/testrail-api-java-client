@@ -4,7 +4,7 @@
 
 A Java client library for [TestRail API](http://docs.gurock.com/testrail-api2/start).
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.codepine.api/testrail-api-java-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.codepine.api/testrail-api-java-client)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.chapeco.api.testrail/testrail-api-java-client.svg?label=Maven%20Central)](https://search.maven.org/artifact/io.github.chapeco.api.testrail/testrail-api-java-client/2.0.2/jar)
 
 ## Quick Start
 --------------
@@ -52,8 +52,8 @@ testRail.projects().update(project.setCompleted(true)).execute();
 
 ## Supported TestRail Version
 -----------------------------
-![TestRail v4.1](https://img.shields.io/badge/TestRail-v4.1-blue.svg)
-[![TestRail v4.1](https://img.shields.io/badge/TestRail%20API-v2-orange.svg)](http://docs.gurock.com/testrail-api2/start)
+![TestRail v5.4](https://img.shields.io/badge/TestRail-v5.4-blue.svg)
+[![TestRail v5.4](https://img.shields.io/badge/TestRail%20API-v2-orange.svg)](http://docs.gurock.com/testrail-api2/start)
 
 [Old API (aka Mini API)](http://docs.gurock.com/testrail-api/start) is not supported. Please note that you may not be able to use some API features supported by this library depending on the TestRail version you use. Similarly, since this is not an official library, API updates in future versions of TestRail may not be supported immediately with the release of new version or may need an incompatible major version change.
 

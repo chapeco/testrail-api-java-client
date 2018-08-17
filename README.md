@@ -1,5 +1,6 @@
 # TestRail API Java Client
 --------------------------
+**THIS REPOSITORY IS A CONTINUATION OF THE WORK CREATED BY [kunal546](https://github.com/kunal546)**
 
 A Java client library for [TestRail API](http://docs.gurock.com/testrail-api2/start).
 
@@ -11,9 +12,9 @@ A Java client library for [TestRail API](http://docs.gurock.com/testrail-api2/st
 ### Maven Dependency
 ```xml
 <dependency>
-    <groupId>com.codepine.api</groupId>
-    <artifactId>testrail-api-java-client</artifactId>
-    <version>${stable.version.shown.above}</version>
+	<groupId>io.github.chapeco.api.testrail</groupId>
+  	<artifactId>testrail-api-java-client</artifactId>
+  	<version>2.0.2</version>
 </dependency>
 ```
 

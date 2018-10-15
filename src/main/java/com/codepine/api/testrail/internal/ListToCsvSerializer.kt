@@ -22,10 +22,25 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.internal
+
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.JsonSerializer
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.google.common.base.Joiner
+
+import java.io.IOException
 
 /**
- * TestRail result field.
+ * Serializer to convert `List<?>` to csv string.
  */
-public class ResultField extends Field {
+class ListToCsvSerializer : JsonSerializer<List<*>>() {
+
+    @Throws(IOException::class, JsonProcessingException::class)
+    override fun serialize(value: List<*>?, jgen: JsonGenerator, provider: SerializerProvider) {
+        if (value != null) {
+            jgen.writeString(Joiner.on(',').join(value))
+        }
+    }
 }

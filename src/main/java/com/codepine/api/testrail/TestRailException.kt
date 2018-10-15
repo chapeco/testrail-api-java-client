@@ -22,37 +22,36 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail
 
-import com.codepine.api.testrail.TestRail;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.base.Preconditions
 
 /**
- * TestRail suite.
+ * Exception representing error returned by TestRail API.
  */
-public class Suite {
+class TestRailException
+/**
+ * @param responseCode the HTTP response code from the TestRail server
+ * @param error        the error message from TestRail service
+ */
+internal constructor(private val responseCode: Int, error: String?) : RuntimeException(responseCode.toString() + " - " + error) {
 
-    private int id;
+    /**
+     * Builder for `TestRailException`.
+     */
+    internal class Builder {
+        private val responseCode: Int = 0
+        private val error: String? = null
 
-    @JsonView({TestRail.Suites.Add.class, TestRail.Suites.Update.class})
-    private String name;
+        fun build(): TestRailException {
+            Preconditions.checkNotNull(responseCode)
+            Preconditions.checkNotNull<String>(error)
+            return TestRailException(responseCode, error)
+        }
+    }
 
-    @JsonView({TestRail.Suites.Add.class, TestRail.Suites.Update.class})
-    private String description;
+    companion object {
 
-    private int projectId;
-
-    @JsonProperty
-    private boolean isBaseline;
-
-    @JsonProperty
-    private boolean isCompleted;
-
-    @JsonProperty
-    private boolean isMaster;
-
-    private String url;
-
+        private val serialVersionUID = -2131644110724458502L
+    }
 }

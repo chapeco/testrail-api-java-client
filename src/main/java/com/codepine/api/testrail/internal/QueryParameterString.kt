@@ -22,21 +22,30 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.internal
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAnySetter
+
+import java.io.UnsupportedEncodingException
+import java.net.URLEncoder
 
 /**
- * TestRail test case priority.
+ * String representing query parameters of a URL.
  */
-public class Priority {
+class QueryParameterString {
 
-    private int id;
-    private String name;
-    private String shortName;
-    private int priority;
-    @JsonProperty
-    private boolean isDefault;
+    private val queryParamStringBuilder = StringBuilder()
 
+    @JsonAnySetter
+    @Throws(UnsupportedEncodingException::class)
+    fun addQueryParameter(key: String, value: String) {
+        if (queryParamStringBuilder.length > 0) {
+            queryParamStringBuilder.append('&')
+        }
+        queryParamStringBuilder.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(value, "UTF-8"))
+    }
+
+    override fun toString(): String {
+        return queryParamStringBuilder.toString()
+    }
 }

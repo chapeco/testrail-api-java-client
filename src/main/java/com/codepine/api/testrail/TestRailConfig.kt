@@ -22,26 +22,18 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.internal;
+package com.codepine.api.testrail
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.google.common.base.Joiner;
-
-import java.io.IOException;
-import java.util.List;
+import com.google.common.base.Optional
 
 /**
- * Serializer to convert {@code List<?>} to csv string.
+ * Configuration for using this client library.
  */
-public class ListToCsvSerializer extends JsonSerializer<List<?>> {
+internal class TestRailConfig(private val baseApiUrl: String, private val username: String, private val password: String, applicationName: String) {
+    private val applicationName: Optional<String>
 
-    @Override
-    public void serialize(List<?> value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-        if (value != null) {
-            jgen.writeString(Joiner.on(',').join(value));
-        }
+    init {
+        this.applicationName = Optional.fromNullable(applicationName)
     }
+
 }

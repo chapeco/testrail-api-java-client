@@ -22,25 +22,36 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import java.util.List;
+import com.codepine.api.testrail.TestRail
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonView
 
 /**
- * TestRail configuration.
+ * TestRail suite.
  */
-public class Configuration {
+class Suite {
 
-    private int id;
-    private String name;
-    private int projectId;
-    private List<Config> configs;
+    private val id: Int = 0
 
-    public class Config {
+    @JsonView(TestRail.Suites.Add::class, TestRail.Suites.Update::class)
+    private val name: String? = null
 
-        private int id;
-        private String name;
-        private int groupId;
+    @JsonView(TestRail.Suites.Add::class, TestRail.Suites.Update::class)
+    private val description: String? = null
 
-    }
+    private val projectId: Int = 0
+
+    @JsonProperty
+    private val isBaseline: Boolean = false
+
+    @JsonProperty
+    private val isCompleted: Boolean = false
+
+    @JsonProperty
+    private val isMaster: Boolean = false
+
+    private val url: String? = null
+
 }

@@ -22,39 +22,22 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail;
+package com.codepine.api.testrail.internal
 
-import com.google.common.base.Preconditions;
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+
+import java.io.IOException
 
 /**
- * Exception representing error returned by TestRail API.
+ * Deserializer to convert (int) 0/1 to (boolean) false/true.
  */
-public class TestRailException extends RuntimeException {
+class IntToBooleanDeserializer : JsonDeserializer<Boolean>() {
 
-    private static final long serialVersionUID = -2131644110724458502L;
-
-    private final int responseCode;
-
-    /**
-     * @param responseCode the HTTP response code from the TestRail server
-     * @param error        the error message from TestRail service
-     */
-    TestRailException(int responseCode, String error) {
-        super(responseCode + " - " + error);
-        this.responseCode = responseCode;
-    }
-
-    /**
-     * Builder for {@code TestRailException}.
-     */
-    static class Builder {
-        private int responseCode;
-        private String error;
-
-        public TestRailException build() {
-            Preconditions.checkNotNull(responseCode);
-            Preconditions.checkNotNull(error);
-            return new TestRailException(responseCode, error);
-        }
+    @Throws(IOException::class, JsonProcessingException::class)
+    override fun deserialize(jp: JsonParser, ctxt: DeserializationContext): Boolean? {
+        return if (jp.getValueAsInt(0) <= 0) java.lang.Boolean.FALSE else java.lang.Boolean.TRUE
     }
 }

@@ -22,50 +22,47 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.google.common.base.MoreObjects;
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.google.common.base.MoreObjects
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections
+import java.util.HashMap
 
 /**
  * TestRail test.
  */
-public class Test {
+class Test {
 
-    private static final String CUSTOM_FIELD_KEY_PREFIX = "custom_";
+    private val id: Int = 0
 
-    private int id;
+    private val caseId: Int = 0
 
-    private int caseId;
+    private val assignedtoId: Int? = null
 
-    private Integer assignedtoId;
+    private val title: String? = null
 
-    private String title;
+    private val statusId: Int = 0
 
-    private int statusId;
+    private val typeId: Int = 0
 
-    private int typeId;
+    private val priorityId: Int = 0
 
-    private int priorityId;
+    private val milestoneId: Int? = null
 
-    private Integer milestoneId;
+    private val runId: Int? = null
 
-    private Integer runId;
+    private val refs: String? = null
 
-    private String refs;
+    private val estimate: String? = null
 
-    private String estimate;
+    private val estimateForecast: String? = null
 
-    private String estimateForecast;
+    private var customFields: MutableMap<String, Any>? = null
 
-    private Map<String, Object> customFields;
-
-    public Map<String, Object> getCustomFields() {
-        return MoreObjects.firstNonNull(customFields, Collections.<String, Object>emptyMap());
+    fun getCustomFields(): Map<String, Any> {
+        return MoreObjects.firstNonNull(customFields, emptyMap())
     }
 
     /**
@@ -75,12 +72,12 @@ public class Test {
      * @param value the value of the custom field
      * @return test instance for chaining
      */
-    public Test addCustomField(String key, Object value) {
+    fun addCustomField(key: String, value: Any): Test {
         if (customFields == null) {
-            customFields = new HashMap<>();
+            customFields = HashMap()
         }
-        customFields.put(key.replaceFirst(CUSTOM_FIELD_KEY_PREFIX, ""), value);
-        return this;
+        customFields!![key.replaceFirst(CUSTOM_FIELD_KEY_PREFIX.toRegex(), "")] = value
+        return this
     }
 
     /**
@@ -90,10 +87,15 @@ public class Test {
      * @param value the value of the unkown field
      */
     @JsonAnySetter
-    private void addUnknownField(String key, Object value) {
+    private fun addUnknownField(key: String, value: Any) {
         if (key.startsWith(CUSTOM_FIELD_KEY_PREFIX)) {
-            addCustomField(key, value);
+            addCustomField(key, value)
         }
+    }
+
+    companion object {
+
+        private val CUSTOM_FIELD_KEY_PREFIX = "custom_"
     }
 
 }

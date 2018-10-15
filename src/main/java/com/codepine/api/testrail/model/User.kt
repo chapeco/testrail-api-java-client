@@ -22,22 +22,19 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.internal;
+package com.codepine.api.testrail.model
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * Serializer to convert (boolean) false/true to (int) 0/1.
+ * TestRail user.
  */
-public class BooleanToIntSerializer extends JsonSerializer<Boolean> {
+class User {
 
-    @Override
-    public void serialize(final Boolean value, final JsonGenerator jgen, final SerializerProvider provider) throws IOException, JsonProcessingException {
-        jgen.writeNumber(value == null ? 0 : value ? 1 : 0);
-    }
+    private val id: Int = 0
+    private val email: String? = null
+    private val name: String? = null
+    @JsonProperty
+    private val isActive: Boolean = false
 }

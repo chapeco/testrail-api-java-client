@@ -22,27 +22,20 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * TestRail status.
+ * TestRail test case priority.
  */
-public class Status {
+class Priority {
 
-    private int id;
-    private String name;
-    private String label;
-    private int colorDark;
-    private int colorMedium;
-    private int colorBright;
+    private val id: Int = 0
+    private val name: String? = null
+    private val shortName: String? = null
+    private val priority: Int = 0
+    @JsonProperty
+    private val isDefault: Boolean = false
 
-    @JsonProperty
-    private boolean isSystem;
-    @JsonProperty
-    private boolean isUntested;
-    @JsonProperty
-    private boolean isFinal;
 }

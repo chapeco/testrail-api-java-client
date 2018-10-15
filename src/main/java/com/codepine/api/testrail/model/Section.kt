@@ -22,26 +22,32 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.internal;
+package com.codepine.api.testrail.model
 
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
+import com.codepine.api.testrail.TestRail
+import com.fasterxml.jackson.annotation.JsonView
 
 /**
- * Factory to create instances of {@link java.net.URLConnection}.
+ * TestRail section.
  */
-public class UrlConnectionFactory {
+class Section {
 
-    /**
-     * Get URL connection.
-     *
-     * @param url the URL to connect to
-     * @return the open connection
-     * @throws IOException if URL is malformed or if there's an IO error
-     */
-    public URLConnection getUrlConnection(final String url) throws IOException {
-        return new URL(url).openConnection();
-    }
+    private val id: Int = 0
+
+    @JsonView(TestRail.Sections.Add::class, TestRail.Sections.Update::class)
+    private val name: String? = null
+
+    @JsonView(TestRail.Sections.Add::class, TestRail.Sections.Update::class)
+    private val description: String? = null
+
+    @JsonView(TestRail.Sections.Add::class)
+    private val suiteId: Int? = null
+
+    @JsonView(TestRail.Sections.Add::class)
+    private val parentId: Int? = null
+
+    private val depth: Int = 0
+
+    private val displayOrder: Int = 0
 
 }

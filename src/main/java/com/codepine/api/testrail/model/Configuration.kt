@@ -22,22 +22,23 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.internal;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-
-import java.io.IOException;
+package com.codepine.api.testrail.model
 
 /**
- * Deserializer to convert (int) 0/1 to (boolean) false/true.
+ * TestRail configuration.
  */
-public class IntToBooleanDeserializer extends JsonDeserializer<Boolean> {
+class Configuration {
 
-    @Override
-    public Boolean deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        return jp.getValueAsInt(0) <= 0 ? Boolean.FALSE : Boolean.TRUE;
+    private val id: Int = 0
+    private val name: String? = null
+    private val projectId: Int = 0
+    private val configs: List<Config>? = null
+
+    inner class Config {
+
+        private val id: Int = 0
+        private val name: String? = null
+        private val groupId: Int = 0
+
     }
 }

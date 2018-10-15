@@ -22,25 +22,9 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail;
-
-import com.google.common.base.Optional;
+package com.codepine.api.testrail.model
 
 /**
- * Configuration for using this client library.
+ * TestRail case field.
  */
-class TestRailConfig {
-
-    private final String baseApiUrl;
-    private final String username;
-    private final String password;
-    private final Optional<String> applicationName;
-
-    TestRailConfig(final String baseApiUrl, final String username, final String password, final String applicationName) {
-        this.baseApiUrl = baseApiUrl;
-        this.username = username;
-        this.password = password;
-        this.applicationName = Optional.fromNullable(applicationName);
-    }
-
-}
+class CaseField : Field()

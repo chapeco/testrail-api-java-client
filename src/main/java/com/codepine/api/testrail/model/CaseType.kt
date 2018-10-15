@@ -22,32 +22,19 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import com.codepine.api.testrail.TestRail;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * TestRail section.
+ * TestRail case type.
  */
-public class Section {
+class CaseType {
 
-    private int id;
-
-    @JsonView({TestRail.Sections.Add.class, TestRail.Sections.Update.class})
-    private String name;
-
-    @JsonView({TestRail.Sections.Add.class, TestRail.Sections.Update.class})
-    private String description;
-
-    @JsonView(TestRail.Sections.Add.class)
-    private Integer suiteId;
-
-    @JsonView(TestRail.Sections.Add.class)
-    private Integer parentId;
-
-    private int depth;
-
-    private int displayOrder;
+    private val id: Int = 0
+    private val name: String? = null
+    @JsonProperty
+    private val isDefault: Boolean = false
 
 }

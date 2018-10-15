@@ -22,19 +22,25 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.internal
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.google.common.base.Splitter
+
+import java.io.IOException
 
 /**
- * TestRail user.
+ * Deserializer to convert csv string to `List<String>`.
  */
-public class User {
+class CsvToListDeserializer : JsonDeserializer<List<String>>() {
 
-    private int id;
-    private String email;
-    private String name;
-    @JsonProperty
-    private boolean isActive;
+    @Throws(IOException::class, JsonProcessingException::class)
+    override fun deserialize(jp: JsonParser, ctxt: DeserializationContext): List<String>? {
+        return if (jp.valueAsString == null) {
+            null
+        } else Splitter.on(',').trimResults().omitEmptyStrings().splitToList(jp.valueAsString)
+    }
 }

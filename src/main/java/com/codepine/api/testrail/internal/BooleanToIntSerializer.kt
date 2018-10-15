@@ -22,19 +22,22 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.internal
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.JsonSerializer
+import com.fasterxml.jackson.databind.SerializerProvider
+
+import java.io.IOException
 
 /**
- * TestRail case type.
+ * Serializer to convert (boolean) false/true to (int) 0/1.
  */
-public class CaseType {
+class BooleanToIntSerializer : JsonSerializer<Boolean>() {
 
-    private int id;
-    private String name;
-    @JsonProperty
-    private boolean isDefault;
-
+    @Throws(IOException::class, JsonProcessingException::class)
+    override fun serialize(value: Boolean?, jgen: JsonGenerator, provider: SerializerProvider) {
+        jgen.writeNumber(if (value == null) 0 else if (value) 1 else 0)
+    }
 }

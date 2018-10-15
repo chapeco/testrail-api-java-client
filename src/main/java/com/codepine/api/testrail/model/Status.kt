@@ -22,27 +22,27 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.internal;
+package com.codepine.api.testrail.model
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.google.common.base.Splitter;
-
-import java.io.IOException;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * Deserializer to convert csv string to {@code List<String>}.
+ * TestRail status.
  */
-public class CsvToListDeserializer extends JsonDeserializer<List<String>> {
+class Status {
 
-    @Override
-    public List<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        if (jp.getValueAsString() == null) {
-            return null;
-        }
-        return Splitter.on(',').trimResults().omitEmptyStrings().splitToList(jp.getValueAsString());
-    }
+    private val id: Int = 0
+    private val name: String? = null
+    private val label: String? = null
+    private val colorDark: Int = 0
+    private val colorMedium: Int = 0
+    private val colorBright: Int = 0
+
+    @JsonProperty
+    private val isSystem: Boolean = false
+    @JsonProperty
+    private val isUntested: Boolean = false
+    @JsonProperty
+    private val isFinal: Boolean = false
 }

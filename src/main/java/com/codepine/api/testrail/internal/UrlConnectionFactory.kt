@@ -22,10 +22,27 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.internal
+
+import java.io.IOException
+import java.net.URL
+import java.net.URLConnection
 
 /**
- * TestRail case field.
+ * Factory to create instances of [java.net.URLConnection].
  */
-public class CaseField extends Field {
+class UrlConnectionFactory {
+
+    /**
+     * Get URL connection.
+     *
+     * @param url the URL to connect to
+     * @return the open connection
+     * @throws IOException if URL is malformed or if there's an IO error
+     */
+    @Throws(IOException::class)
+    fun getUrlConnection(url: String): URLConnection {
+        return URL(url).openConnection()
+    }
+
 }

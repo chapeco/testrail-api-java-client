@@ -25,9 +25,6 @@
 package com.codepine.api.testrail;
 
 import com.google.common.base.Preconditions;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * Exception representing error returned by TestRail API.
@@ -36,7 +33,6 @@ public class TestRailException extends RuntimeException {
 
     private static final long serialVersionUID = -2131644110724458502L;
 
-    @Getter
     private final int responseCode;
 
     /**
@@ -51,7 +47,6 @@ public class TestRailException extends RuntimeException {
     /**
      * Builder for {@code TestRailException}.
      */
-    @Setter
     static class Builder {
         private int responseCode;
         private String error;

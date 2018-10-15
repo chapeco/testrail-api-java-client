@@ -39,12 +39,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializer;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.ToString;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,8 +52,6 @@ import static com.codepine.api.testrail.model.Field.Type;
 /**
  * TestRail result.
  */
-@Data
-@ToString(exclude = "caseId")
 public class Result {
 
     private static final String CUSTOM_FIELD_KEY_PREFIX = "custom_";
@@ -105,7 +97,7 @@ public class Result {
      * @param defect defect to be added
      * @return this instance for chaining
      */
-    public Result addDefect(@NonNull String defect) {
+    public Result addDefect(String defect) {
         Preconditions.checkArgument(!defect.isEmpty(), "defect cannot be empty");
         java.util.List<String> defects = getDefects();
         if (defects == null) {
@@ -176,9 +168,6 @@ public class Result {
     /**
      * Wrapper for list of {@code Result}s for internal use.
      */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class List {
 
         @JsonView({TestRail.Results.AddList.class, TestRail.Results.AddListForCases.class})

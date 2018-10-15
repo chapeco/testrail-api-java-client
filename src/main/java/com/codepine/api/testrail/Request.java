@@ -39,9 +39,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedInputStream;
@@ -58,7 +55,6 @@ import java.nio.charset.Charset;
 /**
  * TestRail request.
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class Request<T> {
 
     private static final UrlConnectionFactory DEFAULT_URL_CONNECTION_FACTORY = new UrlConnectionFactory();
@@ -71,11 +67,8 @@ public abstract class Request<T> {
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .registerModules(new CaseModule(), new FieldModule(), new PlanModule(), new ResultModule(), new UnixTimestampModule());
 
-    @NonNull
     private final TestRailConfig config;
-    @NonNull
     private final Method method;
-    @NonNull
     private final String restPath;
     private final Class<? extends T> responseClass;
     private final TypeReference<? extends T> responseType;
@@ -87,7 +80,7 @@ public abstract class Request<T> {
      * @param restPath the path of the request URL
      * @param responseClass the type of the response entity
      */
-    Request(TestRailConfig config, Method method, String restPath, @NonNull Class<? extends T> responseClass) {
+    Request(TestRailConfig config, Method method, String restPath, Class<? extends T> responseClass) {
         this(config, method, restPath, responseClass, null);
     }
 
@@ -97,7 +90,7 @@ public abstract class Request<T> {
      * @param restPath the path of the request URL
      * @param responseType the type of the response entity
      */
-    Request(TestRailConfig config, Method method, String restPath, @NonNull TypeReference<? extends T> responseType) {
+    Request(TestRailConfig config, Method method, String restPath, TypeReference<? extends T> responseType) {
         this(config, method, restPath, null, responseType);
     }
 

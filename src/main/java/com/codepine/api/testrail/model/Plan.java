@@ -28,11 +28,6 @@ import com.codepine.api.testrail.TestRail;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
@@ -40,7 +35,6 @@ import java.util.List;
 /**
  * TestRail plan.
  */
-@Data
 public class Plan {
 
     private int id;
@@ -65,7 +59,6 @@ public class Plan {
     private int createdBy;
 
     @JsonProperty
-    @Getter(onMethod = @_({@JsonIgnore}))
     private boolean isCompleted;
 
     private Date completedOn;
@@ -97,7 +90,6 @@ public class Plan {
     @JsonView({TestRail.Plans.Add.class})
     private List<Entry> entries;
 
-    @Data
     public static class Entry {
 
         private String id;
@@ -112,7 +104,6 @@ public class Plan {
         private Integer assignedtoId;
 
         @JsonView({TestRail.Plans.Add.class, TestRail.Plans.AddEntry.class, TestRail.Plans.UpdateEntry.class})
-        @Getter(value = AccessLevel.PRIVATE)
         private Boolean includeAll;
 
         @JsonView({TestRail.Plans.Add.class, TestRail.Plans.AddEntry.class, TestRail.Plans.UpdateEntry.class})
@@ -124,9 +115,6 @@ public class Plan {
         @JsonView({TestRail.Plans.Add.class, TestRail.Plans.AddEntry.class})
         private List<Run> runs;
 
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class Run extends com.codepine.api.testrail.model.Run {
             private String entryId;
             private int entryIndex;

@@ -34,13 +34,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -50,7 +43,6 @@ import java.util.Map;
 /**
  * TestRail field.
  */
-@Data
 public class Field {
 
     private int id;
@@ -83,7 +75,6 @@ public class Field {
      * </pre>
      * </p>
      */
-    @RequiredArgsConstructor
     public static enum Type {
         UNKNOWN(Config.Options.class, new TypeReference<Object>() {
         }),
@@ -112,9 +103,7 @@ public class Field {
         MULTI_SELECT(Config.MultiSelectOptions.class, new TypeReference<List<String>>() {
         });
 
-        @Getter
         private final Class<? extends Config.Options> optionsClass;
-        @Getter
         private final TypeReference<?> typeReference;
 
         public static Type getType(int typeId) {
@@ -126,7 +115,6 @@ public class Field {
     /**
      * Configuration for a {@code Field}.
      */
-    @Data
     public static class Config {
 
         private String id;
@@ -136,14 +124,10 @@ public class Field {
         /**
          * Options for a {@code Field} configuration.
          */
-        @Data
         public static class Options {
 
             @JsonProperty
-            @Getter(onMethod = @_({@JsonIgnore}))
             private boolean isRequired;
-            @Getter(value = AccessLevel.PRIVATE, onMethod = @_({@JsonAnyGetter}))
-            @Setter(value = AccessLevel.NONE)
             private Map<String, Object> unknownFields;
 
             @JsonAnySetter
@@ -160,9 +144,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#STRING}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class StringOptions extends Options {
             private String defaultValue;
         }
@@ -170,9 +151,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#INTEGER}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class IntegerOptions extends Options {
             private BigInteger defaultValue;
         }
@@ -180,9 +158,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#TEXT}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class TextOptions extends Options {
             private String defaultValue;
             private String format;
@@ -192,9 +167,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#URL}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class UrlOptions extends Options {
             private String defaultValue;
         }
@@ -202,9 +174,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#CHECKBOX}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class CheckboxOptions extends Options {
             @JsonDeserialize(using = IntToBooleanDeserializer.class)
             private boolean defaultValue;
@@ -213,9 +182,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#DROPDOWN}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class DropdownOptions extends Options {
             private String defaultValue;
             @JsonDeserialize(using = StringToMapDeserializer.class)
@@ -225,9 +191,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#USER}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class UserOptions extends Options {
             private int defaultValue;
         }
@@ -235,27 +198,18 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#DATE}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class DateOptions extends Options {
         }
 
         /**
          * Options for a {@code Field} of type {@link Type#MILESTONE}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class MilestoneOptions extends Options {
         }
 
         /**
          * Options for a {@code Field} of type {@link Type#STEPS}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class StepsOptions extends Options {
             private String format;
             private boolean hasExpected;
@@ -265,9 +219,6 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#STEP_RESULTS}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class StepResultsOptions extends Options {
             private String format;
             private boolean hasExpected;
@@ -277,19 +228,13 @@ public class Field {
         /**
          * Options for a {@code Field} of type {@link Type#MULTI_SELECT}.
          */
-        @Data
-        @EqualsAndHashCode(callSuper = true)
-        @ToString(callSuper = true)
         public static class MultiSelectOptions extends Options {
             @JsonDeserialize(using = StringToMapDeserializer.class)
             private Map<String, String> items;
         }
 
-
-        @Data
         public static class Context {
             @JsonProperty
-            @Getter(onMethod = @_({@JsonIgnore}))
             private boolean isGlobal;
             private List<Integer> projectIds;
         }
@@ -299,7 +244,6 @@ public class Field {
     /**
      * Step; a custom field type.
      */
-    @Data
     public static class Step {
 
         @JsonView({TestRail.Cases.Add.class, TestRail.Cases.Update.class})
@@ -312,7 +256,6 @@ public class Field {
     /**
      * Step result; a custom field type.
      */
-    @Data
     public static class StepResult {
 
         @JsonView({TestRail.Results.Add.class, TestRail.Results.AddForCase.class, TestRail.Results.AddList.class, TestRail.Results.AddListForCases.class})

@@ -26,7 +26,6 @@ package com.codepine.api.testrail.model;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.google.common.base.MoreObjects;
-import lombok.Data;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,7 +34,6 @@ import java.util.Map;
 /**
  * TestRail test.
  */
-@Data
 public class Test {
 
     private static final String CUSTOM_FIELD_KEY_PREFIX = "custom_";

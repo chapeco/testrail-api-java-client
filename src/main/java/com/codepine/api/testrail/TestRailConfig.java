@@ -25,13 +25,10 @@
 package com.codepine.api.testrail;
 
 import com.google.common.base.Optional;
-import lombok.*;
 
 /**
  * Configuration for using this client library.
  */
-@Value
-@ToString(exclude = {"password"})
 class TestRailConfig {
 
     private final String baseApiUrl;

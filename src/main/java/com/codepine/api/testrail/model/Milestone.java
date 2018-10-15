@@ -27,17 +27,12 @@ package com.codepine.api.testrail.model;
 import com.codepine.api.testrail.TestRail;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
 /**
  * TestRail milestone.
  */
-@Data
 public class Milestone {
 
     private int id;
@@ -57,8 +52,6 @@ public class Milestone {
 
     @JsonView({TestRail.Milestones.Update.class})
     @JsonProperty(value = "is_completed")
-    @Getter(value = AccessLevel.PRIVATE)
-    @Setter(value = AccessLevel.PRIVATE)
     private Boolean isCompleted;
 
     public Boolean isCompleted() {

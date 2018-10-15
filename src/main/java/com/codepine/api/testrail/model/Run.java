@@ -28,8 +28,6 @@ import com.codepine.api.testrail.TestRail;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Data;
-import lombok.Getter;
 
 import java.util.Date;
 import java.util.List;
@@ -37,7 +35,6 @@ import java.util.List;
 /**
  * TestRail run.
  */
-@Data
 public class Run {
 
     private int id;
@@ -74,7 +71,6 @@ public class Run {
     private int createdBy;
 
     @JsonProperty
-    @Getter(onMethod = @_({@JsonIgnore}))
     private boolean isCompleted;
 
     private Date completedOn;

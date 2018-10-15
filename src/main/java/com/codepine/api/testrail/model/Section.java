@@ -26,12 +26,10 @@ package com.codepine.api.testrail.model;
 
 import com.codepine.api.testrail.TestRail;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Data;
 
 /**
  * TestRail section.
  */
-@Data
 public class Section {
 
     private int id;

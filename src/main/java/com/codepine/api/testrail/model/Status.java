@@ -26,13 +26,10 @@ package com.codepine.api.testrail.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Getter;
 
 /**
  * TestRail status.
  */
-@Data
 public class Status {
 
     private int id;
@@ -41,13 +38,11 @@ public class Status {
     private int colorDark;
     private int colorMedium;
     private int colorBright;
+
     @JsonProperty
-    @Getter(onMethod = @_({@JsonIgnore}))
     private boolean isSystem;
     @JsonProperty
-    @Getter(onMethod = @_({@JsonIgnore}))
     private boolean isUntested;
     @JsonProperty
-    @Getter(onMethod = @_({@JsonIgnore}))
     private boolean isFinal;
 }

@@ -30,13 +30,6 @@ import com.codepine.api.testrail.model.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -47,12 +40,8 @@ import static com.google.common.base.Preconditions.checkArgument;
  *
  * @see <a href="http://docs.gurock.com/testrail-api2/start">TestRail API v2 Documentation</a>
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@Accessors(fluent = true)
 public class TestRail {
 
-    @Getter(value = AccessLevel.MODULE)
-    @Accessors(fluent = false)
     private final TestRailConfig config;
 
     /**
@@ -63,7 +52,7 @@ public class TestRail {
      * @param password the password of the same TestRail user
      * @return a builder to build {@code TestRail} instance
      */
-    public static Builder builder(@NonNull final String endPoint, @NonNull final String username, @NonNull final String password) {
+    public static Builder builder(final String endPoint, final String username, final String password) {
         return new Builder(endPoint, username, password);
     }
 
@@ -256,7 +245,7 @@ public class TestRail {
          * @return this for chaining
          * @throws NullPointerException if apiPath is null
          */
-        public Builder apiPath(@NonNull final String apiPath) {
+        public Builder apiPath(final String apiPath) {
             String sanitizedApiPath = apiPath.trim();
             if (sanitizedApiPath.startsWith("/")) {
                 sanitizedApiPath = sanitizedApiPath.substring(1);
@@ -275,7 +264,7 @@ public class TestRail {
          * @return this for chaining
          * @throws NullPointerException if applicationName is null
          */
-        public Builder applicationName(@NonNull final String applicationName) {
+        public Builder applicationName(final String applicationName) {
             this.applicationName = applicationName;
             return this;
         }
@@ -293,7 +282,6 @@ public class TestRail {
     /**
      * Request factories for "Projects".
      */
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public class Projects {
 
         /**
@@ -324,7 +312,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if project is null
          */
-        public Add add(@NonNull Project project) {
+        public Add add(Project project) {
             return new Add(project);
         }
 
@@ -335,7 +323,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if project is null
          */
-        public Update update(@NonNull Project project) {
+        public Update update(Project project) {
             return new Update(project);
         }
 
@@ -359,8 +347,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
         public class List extends Request<java.util.List<Project>> {
             private static final String REST_PATH = "get_projects";
 
@@ -379,7 +365,7 @@ public class TestRail {
 
             private final Project project;
 
-            private Add(@NonNull Project project) {
+            private Add(Project project) {
                 super(config, Method.POST, REST_PATH, Project.class);
                 this.project = project;
             }
@@ -396,7 +382,7 @@ public class TestRail {
 
             private final Project project;
 
-            private Update(@NonNull Project project) {
+            private Update(Project project) {
                 super(config, Method.POST, REST_PATH + project.getId(), Project.class);
                 this.project = project;
             }
@@ -421,7 +407,6 @@ public class TestRail {
     /**
      * Request factories for "Cases".
      */
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public class Cases {
 
         /**
@@ -435,7 +420,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if testCaseId is not positive
          * @throws java.lang.NullPointerException     if caseFields is null
          */
-        public Get get(final int testCaseId, @NonNull java.util.List<CaseField> caseFields) {
+        public Get get(final int testCaseId, java.util.List<CaseField> caseFields) {
             checkArgument(testCaseId > 0, "testCaseId should be positive");
             return new Get(testCaseId, caseFields);
         }
@@ -451,7 +436,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if projectId is not positive
          * @throws java.lang.NullPointerException     if caseFields is null
          */
-        public List list(final int projectId, @NonNull java.util.List<CaseField> caseFields) {
+        public List list(final int projectId, java.util.List<CaseField> caseFields) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new List(projectId, caseFields);
         }
@@ -468,7 +453,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if any argument is not positive
          * @throws java.lang.NullPointerException     if caseFields is null
          */
-        public List list(final int projectId, final int suiteId, @NonNull java.util.List<CaseField> caseFields) {
+        public List list(final int projectId, final int suiteId, java.util.List<CaseField> caseFields) {
             checkArgument(projectId > 0, "projectId should be positive");
             checkArgument(suiteId > 0, "suiteId should be positive");
             return new List(projectId, suiteId, caseFields);
@@ -486,7 +471,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if sectionId is not positive
          * @throws java.lang.NullPointerException     if any other argument is null
          */
-        public Add add(final int sectionId, @NonNull Case testCase, @NonNull java.util.List<CaseField> caseFields) {
+        public Add add(final int sectionId, Case testCase, java.util.List<CaseField> caseFields) {
             checkArgument(sectionId > 0, "projectId should be positive");
             return new Add(sectionId, testCase, caseFields);
         }
@@ -501,7 +486,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if any argument is null
          */
-        public Update update(@NonNull Case testCase, @NonNull java.util.List<CaseField> caseFields) {
+        public Update update(Case testCase, java.util.List<CaseField> caseFields) {
             return new Update(testCase, caseFields);
         }
 
@@ -533,9 +518,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Case>> {
             private static final String REST_PATH = "get_cases/%s&suite_id=%s";
             private final java.util.List<CaseField> caseFields;
@@ -644,7 +626,6 @@ public class TestRail {
     /**
      * Request factories for "Case Fields".
      */
-    @NoArgsConstructor
     public class CaseFields {
 
         /**
@@ -669,7 +650,6 @@ public class TestRail {
     /**
      * Request factories for "Case Types".
      */
-    @NoArgsConstructor
     public class CaseTypes {
 
         /**
@@ -695,7 +675,6 @@ public class TestRail {
     /**
      * Request factories for "Configurations".
      */
-    @NoArgsConstructor
     public class Configurations {
 
         /**
@@ -725,7 +704,6 @@ public class TestRail {
     /**
      * Request factories for "Milestones".
      */
-    @NoArgsConstructor
     public class Milestones {
 
         /**
@@ -761,7 +739,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if projectId is not positive
          * @throws java.lang.NullPointerException     if milestone is null
          */
-        public Add add(final int projectId, @NonNull Milestone milestone) {
+        public Add add(final int projectId, Milestone milestone) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new Add(projectId, milestone);
         }
@@ -773,7 +751,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if milestone is null
          */
-        public Update update(@NonNull Milestone milestone) {
+        public Update update(Milestone milestone) {
             return new Update(milestone);
         }
 
@@ -797,9 +775,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Milestone>> {
             private static final String REST_PATH = "get_milestones/";
 
@@ -858,7 +833,6 @@ public class TestRail {
     /**
      * Request factories for "Priorities".
      */
-    @NoArgsConstructor
     public class Priorities {
 
         /**
@@ -884,7 +858,6 @@ public class TestRail {
     /**
      * Request factories for "Plans".
      */
-    @NoArgsConstructor
     public class Plans {
 
         /**
@@ -920,7 +893,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if projectId is not positive
          * @throws java.lang.NullPointerException     if plan is null
          */
-        public Add add(final int projectId, @NonNull Plan plan) {
+        public Add add(final int projectId, Plan plan) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new Add(projectId, plan);
         }
@@ -932,7 +905,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if plan is null
          */
-        public Update update(@NonNull Plan plan) {
+        public Update update(Plan plan) {
             return new Update(plan);
         }
 
@@ -969,7 +942,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if planId is not positive
          * @throws NullPointerException               if any argument is null
          */
-        public AddEntry addEntry(final int planId, @NonNull Plan.Entry entry) {
+        public AddEntry addEntry(final int planId, Plan.Entry entry) {
             checkArgument(planId > 0, "planId should be positive");
             return new AddEntry(planId, entry);
         }
@@ -983,7 +956,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if planId is not positive
          * @throws java.lang.NullPointerException     if any argument is null
          */
-        public UpdateEntry updateEntry(final int planId, @NonNull Plan.Entry entry) {
+        public UpdateEntry updateEntry(final int planId, Plan.Entry entry) {
             checkArgument(planId > 0, "planId should be positive");
             return new UpdateEntry(planId, entry);
         }
@@ -1010,9 +983,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Plan>> {
             private static final String REST_PATH = "get_plans/";
 
@@ -1138,7 +1108,6 @@ public class TestRail {
     /**
      * Request factories for "Results".
      */
-    @NoArgsConstructor
     public class Results {
 
         /**
@@ -1152,7 +1121,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if testId is not positive
          * @throws java.lang.NullPointerException     if resultFields is null
          */
-        public List list(final int testId, @NonNull java.util.List<ResultField> resultFields) {
+        public List list(final int testId, java.util.List<ResultField> resultFields) {
             checkArgument(testId > 0, "testId should be positive");
             return new List(testId, resultFields);
         }
@@ -1169,7 +1138,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if any argument is not positive
          * @throws java.lang.NullPointerException     if resultFields is null
          */
-        public ListForCase listForCase(final int runId, final int testCaseId, @NonNull java.util.List<ResultField> resultFields) {
+        public ListForCase listForCase(final int runId, final int testCaseId, java.util.List<ResultField> resultFields) {
             checkArgument(runId > 0, "runId should be positive");
             checkArgument(testCaseId > 0, "testCaseId should be positive");
             return new ListForCase(runId, testCaseId, resultFields);
@@ -1186,7 +1155,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if runId is not positive
          * @throws java.lang.NullPointerException     if resultFields is null
          */
-        public ListForRun listForRun(final int runId, @NonNull java.util.List<ResultField> resultFields) {
+        public ListForRun listForRun(final int runId, java.util.List<ResultField> resultFields) {
             checkArgument(runId > 0, "runId should be positive");
             return new ListForRun(runId, resultFields);
         }
@@ -1203,7 +1172,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if testId is not positive
          * @throws java.lang.NullPointerException     if any other argument is null
          */
-        public Add add(final int testId, @NonNull Result result, @NonNull java.util.List<ResultField> resultFields) {
+        public Add add(final int testId, Result result, java.util.List<ResultField> resultFields) {
             checkArgument(testId > 0, "testId should be positive");
             return new Add(testId, result, resultFields);
         }
@@ -1221,7 +1190,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if runId or testCaseId is not positive
          * @throws java.lang.NullPointerException     if any other argument is null
          */
-        public AddForCase addForCase(final int runId, final int testCaseId, @NonNull Result result, @NonNull java.util.List<ResultField> resultFields) {
+        public AddForCase addForCase(final int runId, final int testCaseId, Result result, java.util.List<ResultField> resultFields) {
             checkArgument(runId > 0, "runId should be positive");
             checkArgument(testCaseId > 0, "testCaseId should be positive");
             return new AddForCase(runId, testCaseId, result, resultFields);
@@ -1239,7 +1208,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if runId is not positive or results is empty
          * @throws java.lang.NullPointerException     if results or resultFields are null
          */
-        public AddList add(final int runId, @NonNull java.util.List<Result> results, @NonNull java.util.List<ResultField> resultFields) {
+        public AddList add(final int runId, java.util.List<Result> results, java.util.List<ResultField> resultFields) {
             checkArgument(runId > 0, "runId should be positive");
             checkArgument(!results.isEmpty(), "results cannot be empty");
             return new AddList(runId, results, resultFields);
@@ -1257,15 +1226,12 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if runId is not positive or results is empty
          * @throws java.lang.NullPointerException     if results or resultFields are null
          */
-        public AddListForCases addForCases(final int runId, @NonNull java.util.List<Result> results, @NonNull java.util.List<ResultField> resultFields) {
+        public AddListForCases addForCases(final int runId, java.util.List<Result> results, java.util.List<ResultField> resultFields) {
             checkArgument(runId > 0, "runId should be positive");
             checkArgument(!results.isEmpty(), "results cannot be empty");
             return new AddListForCases(runId, results, resultFields);
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Result>> {
             private static final String REST_PATH = "get_results/";
             private final java.util.List<ResultField> resultFields;
@@ -1289,9 +1255,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class ListForRun extends Request<java.util.List<Result>> {
             private static final String REST_PATH = "get_results_for_run/";
             private final java.util.List<ResultField> resultFields;
@@ -1322,9 +1285,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class ListForCase extends Request<java.util.List<Result>> {
             private static final String REST_PATH = "get_results_for_case/";
             private final java.util.List<ResultField> resultFields;
@@ -1448,7 +1408,6 @@ public class TestRail {
     /**
      * Request factories for "Result Fields".
      */
-    @NoArgsConstructor
     public class ResultFields {
 
         /**
@@ -1473,7 +1432,6 @@ public class TestRail {
     /**
      * Request factories for "Runs".
      */
-    @NoArgsConstructor
     public class Runs {
 
         /**
@@ -1509,7 +1467,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if projectId is not positive
          * @throws java.lang.NullPointerException     if run is null
          */
-        public Add add(final int projectId, @NonNull Run run) {
+        public Add add(final int projectId, Run run) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new Add(projectId, run);
         }
@@ -1521,7 +1479,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if run is null
          */
-        public Update update(@NonNull Run run) {
+        public Update update(Run run) {
             return new Update(run);
         }
 
@@ -1557,9 +1515,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Run>> {
             private static final String REST_PATH = "get_runs/";
 
@@ -1650,7 +1605,6 @@ public class TestRail {
     /**
      * Request factories for "Sections".
      */
-    @NoArgsConstructor
     public class Sections {
 
         /**
@@ -1699,7 +1653,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if section is null
          */
-        public Add add(final int projectId, @NonNull Section section) {
+        public Add add(final int projectId, Section section) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new Add(projectId, section);
         }
@@ -1711,7 +1665,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if section is null
          */
-        public Update update(@NonNull Section section) {
+        public Update update(Section section) {
             return new Update(section);
         }
 
@@ -1794,7 +1748,6 @@ public class TestRail {
     /**
      * Request factories for "Statuses".
      */
-    @NoArgsConstructor
     public class Statuses {
 
         /**
@@ -1820,7 +1773,6 @@ public class TestRail {
     /**
      * Request factories for "Suites".
      */
-    @NoArgsConstructor
     public class Suites {
 
         /**
@@ -1856,7 +1808,7 @@ public class TestRail {
          * @throws java.lang.IllegalArgumentException if projectId is not positive
          * @throws java.lang.NullPointerException     if suite is null
          */
-        public Add add(final int projectId, @NonNull Suite suite) {
+        public Add add(final int projectId, Suite suite) {
             checkArgument(projectId > 0, "projectId should be positive");
             return new Add(projectId, suite);
         }
@@ -1868,7 +1820,7 @@ public class TestRail {
          * @return the request
          * @throws java.lang.NullPointerException if suite is null
          */
-        public Update update(@NonNull Suite suite) {
+        public Update update(Suite suite) {
             return new Update(suite);
         }
 
@@ -1946,7 +1898,6 @@ public class TestRail {
     /**
      * Request factories for "Tests".
      */
-    @NoArgsConstructor
     public class Tests {
 
         /**
@@ -1981,9 +1932,6 @@ public class TestRail {
             }
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
         public class List extends Request<java.util.List<Test>> {
             private static final String REST_PATH = "get_tests/";
 
@@ -2002,7 +1950,6 @@ public class TestRail {
     /**
      * Request factories for "Users".
      */
-    @NoArgsConstructor
     public class Users {
 
         /**
@@ -2025,7 +1972,7 @@ public class TestRail {
          * @throws java.lang.NullPointerException     if email is null
          * @throws java.lang.IllegalArgumentException if email is empty
          */
-        public GetByEmail getByEmail(@NonNull String email) {
+        public GetByEmail getByEmail(String email) {
             email = email.trim();
             checkArgument(!email.isEmpty(), "email cannot be empty");
             return new GetByEmail(email);
@@ -2070,7 +2017,6 @@ public class TestRail {
     /**
      * Request factories for "Templates".
      */
-    @NoArgsConstructor
     public class Templates {
 
         public List list(final int projectId) {

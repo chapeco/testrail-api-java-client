@@ -24,15 +24,11 @@
 
 package com.codepine.api.testrail.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 import java.util.List;
 
 /**
  * TestRail configuration.
  */
-@Data
 public class Configuration {
 
     private int id;
@@ -40,8 +36,6 @@ public class Configuration {
     private int projectId;
     private List<Config> configs;
 
-    @Data
-    @Accessors(chain = true)
     public class Config {
 
         private int id;

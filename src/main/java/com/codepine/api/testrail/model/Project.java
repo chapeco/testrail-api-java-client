@@ -29,17 +29,12 @@ package com.codepine.api.testrail.model;
 
 import com.codepine.api.testrail.TestRail;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
 /**
  * TestRail project.
  */
-@Data
 public class Project {
 
     private int id;
@@ -51,12 +46,9 @@ public class Project {
     private String announcement;
 
     @JsonView({TestRail.Projects.Add.class, TestRail.Projects.Update.class})
-    @Getter(value = AccessLevel.PRIVATE)
     private Boolean showAnnouncement;
 
     @JsonView(TestRail.Projects.Update.class)
-    @Getter(value = AccessLevel.PRIVATE)
-    @Setter(value = AccessLevel.PRIVATE)
     private Boolean isCompleted;
 
     private Date completedOn;

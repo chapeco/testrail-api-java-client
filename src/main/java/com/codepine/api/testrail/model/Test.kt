@@ -35,29 +35,29 @@ import java.util.HashMap
  */
 class Test {
 
-    private val id: Int = 0
+    var id: Int = 0
 
-    private val caseId: Int = 0
+    var caseId: Int = 0
 
-    private val assignedtoId: Int? = null
+    var assignedtoId: Int? = null
 
-    private val title: String? = null
+    var title: String? = null
 
-    private val statusId: Int = 0
+    var statusId: Int = 0
 
-    private val typeId: Int = 0
+    var typeId: Int = 0
 
-    private val priorityId: Int = 0
+    var priorityId: Int = 0
 
-    private val milestoneId: Int? = null
+    var milestoneId: Int? = null
 
-    private val runId: Int? = null
+    var runId: Int? = null
 
-    private val refs: String? = null
+    var refs: String? = null
 
-    private val estimate: String? = null
+    var estimate: String? = null
 
-    private val estimateForecast: String? = null
+    var estimateForecast: String? = null
 
     private var customFields: MutableMap<String, Any>? = null
 
@@ -95,7 +95,7 @@ class Test {
 
     companion object {
 
-        private val CUSTOM_FIELD_KEY_PREFIX = "custom_"
+        var CUSTOM_FIELD_KEY_PREFIX = "custom_"
     }
 
 }

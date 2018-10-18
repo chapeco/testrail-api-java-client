@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class Template {
 
-    private val id: Int = 0
+    var id: Int = 0
 
     @JsonProperty(value = "is_default")
-    private val isDefault: Boolean = false
+    var isDefault: Boolean = false
 
-    private val name: String? = null
+    var name: String? = null
 }

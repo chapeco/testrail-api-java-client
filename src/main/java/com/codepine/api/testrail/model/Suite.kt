@@ -33,25 +33,25 @@ import com.fasterxml.jackson.annotation.JsonView
  */
 class Suite {
 
-    private val id: Int = 0
+    var id: Int = 0
 
     @JsonView(TestRail.Suites.Add::class, TestRail.Suites.Update::class)
-    private val name: String? = null
+    var name: String? = null
 
     @JsonView(TestRail.Suites.Add::class, TestRail.Suites.Update::class)
-    private val description: String? = null
+    var description: String? = null
 
-    private val projectId: Int = 0
-
-    @JsonProperty
-    private val isBaseline: Boolean = false
+    var projectId: Int = 0
 
     @JsonProperty
-    private val isCompleted: Boolean = false
+    var isBaseline: Boolean = false
 
     @JsonProperty
-    private val isMaster: Boolean = false
+    var isCompleted: Boolean = false
 
-    private val url: String? = null
+    @JsonProperty
+    var isMaster: Boolean = false
+
+    var url: String? = null
 
 }

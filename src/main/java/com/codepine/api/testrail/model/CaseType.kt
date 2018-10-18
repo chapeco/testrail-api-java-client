@@ -32,9 +32,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class CaseType {
 
-    private val id: Int = 0
-    private val name: String? = null
+    var id: Int = 0
+    var name: String? = null
     @JsonProperty
-    private val isDefault: Boolean = false
+    var isDefault: Boolean = false
 
 }

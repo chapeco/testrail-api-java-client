@@ -29,16 +29,16 @@ package com.codepine.api.testrail.model
  */
 class Configuration {
 
-    private val id: Int = 0
-    private val name: String? = null
-    private val projectId: Int = 0
-    private val configs: List<Config>? = null
+    var id: Int = 0
+    var name: String? = null
+    var projectId: Int = 0
+    var configs: List<Config>? = null
 
     inner class Config {
 
-        private val id: Int = 0
-        private val name: String? = null
-        private val groupId: Int = 0
+        var id: Int = 0
+        var name: String? = null
+        var groupId: Int = 0
 
     }
 }

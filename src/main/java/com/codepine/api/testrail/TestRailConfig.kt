@@ -29,11 +29,6 @@ import com.google.common.base.Optional
 /**
  * Configuration for using this client library.
  */
-internal class TestRailConfig(private val baseApiUrl: String, private val username: String, private val password: String, applicationName: String) {
-    private val applicationName: Optional<String>
-
-    init {
-        this.applicationName = Optional.fromNullable(applicationName)
-    }
-
+internal class TestRailConfig(val baseApiUrl: String, val username: String, val password: String, applicationName: String) {
+    val applicationName: Optional<String> = Optional.fromNullable(applicationName)
 }

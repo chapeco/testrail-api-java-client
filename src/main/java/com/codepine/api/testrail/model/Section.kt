@@ -32,22 +32,22 @@ import com.fasterxml.jackson.annotation.JsonView
  */
 class Section {
 
-    private val id: Int = 0
+    var id: Int = 0
 
     @JsonView(TestRail.Sections.Add::class, TestRail.Sections.Update::class)
-    private val name: String? = null
+    var name: String? = null
 
     @JsonView(TestRail.Sections.Add::class, TestRail.Sections.Update::class)
-    private val description: String? = null
+    var description: String? = null
 
     @JsonView(TestRail.Sections.Add::class)
-    private val suiteId: Int? = null
+    var suiteId: Int? = null
 
     @JsonView(TestRail.Sections.Add::class)
-    private val parentId: Int? = null
+    var parentId: Int? = null
 
-    private val depth: Int = 0
+    var depth: Int = 0
 
-    private val displayOrder: Int = 0
+    var displayOrder: Int = 0
 
 }

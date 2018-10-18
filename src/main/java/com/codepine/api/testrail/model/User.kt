@@ -32,9 +32,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class User {
 
-    private val id: Int = 0
-    private val email: String? = null
-    private val name: String? = null
+    var id: Int = 0
+    var email: String? = null
+    var name: String? = null
     @JsonProperty
-    private val isActive: Boolean = false
+    var isActive: Boolean = false
 }

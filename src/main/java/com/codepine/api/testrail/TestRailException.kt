@@ -40,8 +40,8 @@ internal constructor(private val responseCode: Int, error: String?) : RuntimeExc
      * Builder for `TestRailException`.
      */
     internal class Builder {
-        private val responseCode: Int = 0
-        private val error: String? = null
+        var responseCode: Int = 0
+        var error: String? = null
 
         fun build(): TestRailException {
             Preconditions.checkNotNull(responseCode)

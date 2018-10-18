@@ -31,11 +31,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class Priority {
 
-    private val id: Int = 0
-    private val name: String? = null
-    private val shortName: String? = null
-    private val priority: Int = 0
+    var id: Int = 0
+    var name: String? = null
+    var shortName: String? = null
+    var priority: Int = 0
     @JsonProperty
-    private val isDefault: Boolean = false
+    var isDefault: Boolean = false
 
 }

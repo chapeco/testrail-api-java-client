@@ -32,17 +32,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class Status {
 
-    private val id: Int = 0
-    private val name: String? = null
-    private val label: String? = null
-    private val colorDark: Int = 0
-    private val colorMedium: Int = 0
-    private val colorBright: Int = 0
+    var id: Int = 0
+    var name: String? = null
+    var label: String? = null
+    var colorDark: Int = 0
+    var colorMedium: Int = 0
+    var colorBright: Int = 0
 
     @JsonProperty
-    private val isSystem: Boolean = false
+    var isSystem: Boolean = false
     @JsonProperty
-    private val isUntested: Boolean = false
+    var isUntested: Boolean = false
     @JsonProperty
-    private val isFinal: Boolean = false
+    var isFinal: Boolean = false
 }

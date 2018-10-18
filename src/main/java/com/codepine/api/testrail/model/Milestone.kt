@@ -22,65 +22,57 @@
  * SOFTWARE.
  */
 
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import com.codepine.api.testrail.TestRail;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.codepine.api.testrail.TestRail
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonView
 
-import java.util.Date;
+import java.util.Date
 
 /**
  * TestRail milestone.
  */
-public class Milestone {
+class Milestone {
 
-    private int id;
+    var id: Int = 0
 
-    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
-    private String name;
+    @JsonView(TestRail.Milestones.Add::class, TestRail.Milestones.Update::class)
+    var name: String? = null
 
-    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
-    private String description;
+    @JsonView(TestRail.Milestones.Add::class, TestRail.Milestones.Update::class)
+    var description: String? = null
 
     @JsonProperty(value = "project_id")
-    private int projectId;
+    var projectId: Int = 0
 
-    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonView(TestRail.Milestones.Add::class, TestRail.Milestones.Update::class)
     @JsonProperty(value = "due_on")
-    private Date dueOn;
+    var dueOn: Date? = null
 
-    @JsonView({TestRail.Milestones.Update.class})
+    @JsonView(TestRail.Milestones.Update::class)
     @JsonProperty(value = "is_completed")
-    private Boolean isCompleted;
-
-    public Boolean isCompleted() {
-        return getIsCompleted();
-    }
-
-    public Milestone setCompleted(boolean isCompleted) {
-        return setIsCompleted(isCompleted);
-    }
+    var isCompleted: Boolean? = null
 
     @JsonProperty(value = "completed_on")
-    private Date completedOn;
+    var completedOn: Date? = null
 
-    private String url;
+    var url: String? = null
 
-    @JsonView({TestRail.Milestones.Update.class})
+    @JsonView(TestRail.Milestones.Update::class)
     @JsonProperty(value = "is_started")
-    private boolean isStarted;
+    var isStarted: Boolean = false
 
-    private Milestone[] milestones;
+    var milestones: Array<Milestone>? = null
 
-    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonView(TestRail.Milestones.Add::class, TestRail.Milestones.Update::class)
     @JsonProperty(value = "parent_id")
-    private int parentId;
+    var parentId: Int = 0
 
-    @JsonView({TestRail.Milestones.Add.class, TestRail.Milestones.Update.class})
+    @JsonView(TestRail.Milestones.Add::class, TestRail.Milestones.Update::class)
     @JsonProperty(value = "start_on")
-    private Date startOn;
+    var startOn: Date? = null
 
     @JsonProperty(value = "started_on")
-    private Date startedOn;
+    var startedOn: Date? = null
 }

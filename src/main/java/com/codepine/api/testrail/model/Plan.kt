@@ -32,38 +32,26 @@ import com.fasterxml.jackson.annotation.JsonView
 import java.util.Date
 
 /**
- * TestRail run.
+ * TestRail plan.
  */
-open class Run {
+class Plan {
 
     var id: Int = 0
 
-    @JsonView(TestRail.Runs.Add::class, TestRail.Runs.Update::class)
+    @JsonView(TestRail.Plans.Add::class, TestRail.Plans.Update::class)
     var name: String? = null
 
-    @JsonView(TestRail.Runs.Add::class, TestRail.Runs.Update::class)
+    @JsonView(TestRail.Plans.Add::class, TestRail.Plans.Update::class)
     var description: String? = null
 
     var url: String? = null
 
     var projectId: Int = 0
 
-    var planId: Int? = null
-
-    @JsonView(TestRail.Runs.Add::class)
-    var suiteId: Int? = null
-
-    @JsonView(TestRail.Runs.Add::class, TestRail.Runs.Update::class)
+    @JsonView(TestRail.Plans.Add::class, TestRail.Plans.Update::class)
     var milestoneId: Int? = null
 
-    @JsonView(TestRail.Runs.Add::class, TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
     var assignedtoId: Int? = null
-
-    @JsonView(TestRail.Runs.Add::class, TestRail.Runs.Update::class, TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
-    var includeAll: Boolean? = null
-
-    @JsonView(TestRail.Runs.Add::class, TestRail.Runs.Update::class, TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
-    var caseIds: List<Int>? = null
 
     var createdOn: Date? = null
 
@@ -73,11 +61,6 @@ open class Run {
     var isCompleted: Boolean = false
 
     var completedOn: Date? = null
-
-    var config: List<String>? = null
-
-    @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
-    var configIds: List<Int>? = null
 
     var passedCount: Int = 0
 
@@ -103,4 +86,37 @@ open class Run {
 
     var customStatus7Count: Int = 0
 
+    @JsonView(TestRail.Plans.Add::class)
+    var entries: List<Entry>? = null
+
+    class Entry {
+
+        var id: String? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class, TestRail.Plans.UpdateEntry::class)
+        var name: String? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
+        var suiteId: Int? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class, TestRail.Plans.UpdateEntry::class)
+        var assignedtoId: Int? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class, TestRail.Plans.UpdateEntry::class)
+        var includeAll: Boolean? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class, TestRail.Plans.UpdateEntry::class)
+        var caseIds: List<Int>? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
+        var configIds: List<Int>? = null
+
+        @JsonView(TestRail.Plans.Add::class, TestRail.Plans.AddEntry::class)
+        var runs: List<Run>? = null
+
+        class Run : com.codepine.api.testrail.model.Run() {
+            var entryId: String? = null
+            var entryIndex: Int = 0
+        }
+    }
 }

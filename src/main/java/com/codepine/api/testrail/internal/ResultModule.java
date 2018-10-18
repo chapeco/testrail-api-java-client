@@ -85,7 +85,7 @@ public class ResultModule extends SimpleModule {
             Map<String, Object> customFields = new HashMap<>(result.getCustomFields().size());
             for (Map.Entry<String, Object> customField : result.getCustomFields().entrySet()) {
                 checkArgument(resultFields.containsKey(customField.getKey()), "Result field list configuration is possibly outdated since it does not contain custom field: " + customField.getKey());
-                customFields.put(customField.getKey(), mapper.convertValue(customField.getValue(), Field.Type.getType(resultFields.get(customField.getKey()).getTypeId()).getTypeReference()));
+                customFields.put(customField.getKey(), mapper.convertValue(customField.getValue(), Field.Type.Companion.getType(resultFields.get(customField.getKey()).getTypeId()).getTypeReference()));
             }
             result.setCustomFields(customFields);
             return result;

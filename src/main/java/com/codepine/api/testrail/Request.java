@@ -67,11 +67,11 @@ public abstract class Request<T> {
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .registerModules(new CaseModule(), new FieldModule(), new PlanModule(), new ResultModule(), new UnixTimestampModule());
 
-    private final TestRailConfig config;
-    private final Method method;
-    private final String restPath;
-    private final Class<? extends T> responseClass;
-    private final TypeReference<? extends T> responseType;
+    private TestRailConfig config;
+    private Method method;
+    private String restPath;
+    private Class<? extends T> responseClass;
+    private TypeReference<? extends T> responseType;
     private UrlConnectionFactory urlConnectionFactory = DEFAULT_URL_CONNECTION_FACTORY;
 
     /**
@@ -92,6 +92,9 @@ public abstract class Request<T> {
      */
     Request(TestRailConfig config, Method method, String restPath, TypeReference<? extends T> responseType) {
         this(config, method, restPath, null, responseType);
+    }
+
+    public Request(TestRailConfig config, Method method, String restPath, Class<? extends T> responseClass, Object o) {
     }
 
     /**
@@ -133,13 +136,14 @@ public abstract class Request<T> {
             }
 
             if (responseCode != HttpURLConnection.HTTP_OK) {
-                try (InputStream errorStream = con.getErrorStream()) {
-                    TestRailException.Builder exceptionBuilder = new TestRailException.Builder().setResponseCode(responseCode);
-                    if (errorStream == null) {
-                        throw exceptionBuilder.setError("<server did not send any error message>").build();
-                    }
-                    throw JSON.readerForUpdating(exceptionBuilder).<TestRailException.Builder>readValue(new BufferedInputStream(errorStream)).build();
-                }
+                //TODO
+//                try (InputStream errorStream = con.getErrorStream()) {
+//                    TestRailException.Builder exceptionBuilder = new TestRailException.Builder().setResponseCode(responseCode);
+//                    if (errorStream == null) {
+//                        throw exceptionBuilder.setError("<server did not send any error message>").build();
+//                    }
+//                    throw JSON.readerForUpdating(exceptionBuilder).<TestRailException.Builder>readValue(new BufferedInputStream(errorStream)).build();
+//                }
             }
 
             try (InputStream responseStream = new BufferedInputStream(con.getInputStream())) {

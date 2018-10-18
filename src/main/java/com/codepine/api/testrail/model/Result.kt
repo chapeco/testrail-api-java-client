@@ -25,6 +25,8 @@
 package com.codepine.api.testrail.model
 
 import com.codepine.api.testrail.TestRail
+import com.codepine.api.testrail.internal.CsvToListDeserializer
+import com.codepine.api.testrail.internal.ListToCsvSerializer
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -32,73 +34,82 @@ import com.fasterxml.jackson.annotation.JsonView
 import com.fasterxml.jackson.core.JsonGenerationException
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializer
 import com.google.common.base.MoreObjects
+import com.google.common.base.Preconditions
 
 import java.io.IOException
-import java.util.Collections
+import java.util.ArrayList
 import java.util.Date
 import java.util.HashMap
 
 import com.codepine.api.testrail.model.Field.Type
 
-
 /**
- * TestRail case.
+ * TestRail result.
  */
-class Case {
+class Result {
 
     var id: Int = 0
 
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var title: String? = null
+    var testId: Int = 0
 
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var templateId: Int? = null
+    @JsonView(TestRail.Results.AddListForCases::class)
+    var caseId: Int? = null
 
-    var sectionId: Int = 0
-
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var typeId: Int? = null
-
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var priorityId: Int? = null
-
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var milestoneId: Int? = null
-
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var refs: String? = null
-
-    var createdBy: Int = 0
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    var statusId: Int? = null
 
     var createdOn: Date? = null
 
-    var updatedBy: Int = 0
+    var createdBy: Int = 0
 
-    var updatedOn: Date? = null
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    var assignedtoId: Int? = null
 
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
-    var estimate: String? = null
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    var comment: String? = null
 
-    var estimateForecast: String? = null
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    var version: String? = null
 
-    var suiteId: Int = 0
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    var elapsed: String? = null
 
-    @JsonView(TestRail.Cases.Add::class, TestRail.Cases.Update::class)
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+    @JsonSerialize(using = ListToCsvSerializer::class)
+    @JsonDeserialize(using = CsvToListDeserializer::class)
+    var defects: ArrayList<String>? = null
+
+    @JsonView(TestRail.Results.Add::class, TestRail.Results.AddForCase::class, TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
     @JsonSerialize(keyUsing = CustomFieldSerializer::class)
     var customFields: MutableMap<String, Any>? = null
 
+    /**
+     * Add a defect.
+     *
+     * @param defect defect to be added
+     * @return this instance for chaining
+     */
+    fun addDefect(defect: String): Result {
+        Preconditions.checkArgument(!defect.isEmpty(), "defect cannot be empty")
+        if (defects == null) {
+            defects = ArrayList<String>()
+        }
+        defects!!.add(defect)
+        return this
+    }
 
     /**
      * Add a custom field.
      *
      * @param key   the name of the custom field with or without "custom_" prefix
      * @param value the value of the custom field
-     * @return case instance for chaining
+     * @return result instance for chaining
      */
-    fun addCustomField(key: String, value: Any): Case {
+    fun addCustomField(key: String, value: Any): Result {
         if (customFields == null) {
             customFields = HashMap()
         }
@@ -143,9 +154,18 @@ class Case {
         }
     }
 
+    /**
+     * Wrapper for list of `Result`s for internal use.
+     */
+    class List(results: MutableList<Result>) {
+
+        @JsonView(TestRail.Results.AddList::class, TestRail.Results.AddListForCases::class)
+        var results: ArrayList<Result>? = null
+
+    }
+
     companion object {
 
         var CUSTOM_FIELD_KEY_PREFIX = "custom_"
     }
-
 }

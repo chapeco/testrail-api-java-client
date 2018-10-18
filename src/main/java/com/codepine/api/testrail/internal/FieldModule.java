@@ -61,7 +61,7 @@ public class FieldModule extends SimpleModule {
             Field field = (Field) defaultDeserializer.deserialize(jsonParser, deserializationContext);
             ObjectMapper mapper = (ObjectMapper) jsonParser.getCodec();
             // set type
-            field.setType(Field.Type.getType(field.getTypeId()));
+            field.setType(Field.Type.Companion.getType(field.getTypeId()));
             for (Field.Config config : field.getConfigs()) {
                 // update options to correct type implementations
                 config.setOptions(mapper.convertValue(config.getOptions(), field.getType().getOptionsClass()));

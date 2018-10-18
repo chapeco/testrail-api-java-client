@@ -25,48 +25,36 @@
 /**
  *
  */
-package com.codepine.api.testrail.model;
+package com.codepine.api.testrail.model
 
-import com.codepine.api.testrail.TestRail;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.codepine.api.testrail.TestRail
+import com.fasterxml.jackson.annotation.JsonView
 
-import java.util.Date;
+import java.util.Date
 
 /**
  * TestRail project.
  */
-public class Project {
+class Project {
 
-    private int id;
+    var id: Int = 0
 
-    @JsonView({TestRail.Projects.Add.class, TestRail.Projects.Update.class})
-    private String name;
+    @JsonView(TestRail.Projects.Add::class, TestRail.Projects.Update::class)
+    var name: String? = null
 
-    @JsonView({TestRail.Projects.Add.class, TestRail.Projects.Update.class})
-    private String announcement;
+    @JsonView(TestRail.Projects.Add::class, TestRail.Projects.Update::class)
+    var announcement: String? = null
 
-    @JsonView({TestRail.Projects.Add.class, TestRail.Projects.Update.class})
-    private Boolean showAnnouncement;
+    @JsonView(TestRail.Projects.Add::class, TestRail.Projects.Update::class)
+    var showAnnouncement: Boolean? = null
 
-    @JsonView(TestRail.Projects.Update.class)
-    private Boolean isCompleted;
+    @JsonView(TestRail.Projects.Update::class)
+    var isCompleted: Boolean? = null
 
-    private Date completedOn;
+    var completedOn: Date? = null
 
-    private String url;
+    var url: String? = null
 
-    @JsonView({TestRail.Projects.Add.class, TestRail.Projects.Update.class})
-    private Integer suiteMode;
-
-    public Boolean isCompleted() {
-        return getIsCompleted();
-    }
-
-    public Project setCompleted(boolean isCompleted) {
-        return setIsCompleted(isCompleted);
-    }
-
-    public Boolean isShowAnnouncement() {
-        return getShowAnnouncement();
-    }
+    @JsonView(TestRail.Projects.Add::class, TestRail.Projects.Update::class)
+    var suiteMode: Int? = null
 }

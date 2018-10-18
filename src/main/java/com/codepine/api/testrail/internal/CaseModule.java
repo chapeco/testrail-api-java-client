@@ -85,7 +85,7 @@ public class CaseModule extends SimpleModule {
             Map<String, Object> customFields = new HashMap<>(testCase.getCustomFields().size());
             for (Map.Entry<String, Object> customField : testCase.getCustomFields().entrySet()) {
                 checkArgument(caseFields.containsKey(customField.getKey()), "Case field list configuration is possibly outdated since it does not contain custom field: " + customField.getKey());
-                customFields.put(customField.getKey(), mapper.convertValue(customField.getValue(), Field.Type.getType(caseFields.get(customField.getKey()).getTypeId()).getTypeReference()));
+                customFields.put(customField.getKey(), mapper.convertValue(customField.getValue(), Field.Type.Companion.getType(caseFields.get(customField.getKey()).getTypeId()).getTypeReference()));
             }
             testCase.setCustomFields(customFields);
             return testCase;

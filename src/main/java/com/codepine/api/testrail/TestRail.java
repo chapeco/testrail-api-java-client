@@ -42,7 +42,10 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class TestRail {
 
-    private final TestRailConfig config;
+    private TestRailConfig config;
+
+    public TestRail(TestRailConfig testRailConfig) {
+    }
 
     /**
      * Get a builder to build an instance of {@code TestRail}.

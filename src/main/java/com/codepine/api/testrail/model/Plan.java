@@ -101,6 +101,9 @@ public class Plan {
     public static class Entry {
 
         private String id;
+        
+        @JsonView({TestRail.Plans.Add.class, TestRail.Plans.AddEntry.class, TestRail.Plans.UpdateEntry.class})
+        private String description;
 
         @JsonView({TestRail.Plans.Add.class, TestRail.Plans.AddEntry.class, TestRail.Plans.UpdateEntry.class})
         private String name;
